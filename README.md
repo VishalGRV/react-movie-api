@@ -1,6 +1,21 @@
 # 🎬 React Movie App
 A movie search and discovery app built with React, using the TMDb API. Users can explore popular movies, search titles, and view basic info like release date and year.
 
+# 🚀 Features
+- 🔍 Search movies by name
+- 🌟 View trending/popular movies
+- 📄 See movie details like release date, year
+- 💾 (Optional) Add to favorites/watchlist
+- 📱 Responsive design for mobile and desktop
+
+# 🧰 Tech Stack
+Frontend: React, JSX, CSS
+API: TMDb (or your custom API)
+Other: React Router, useEffect/useState hooks , React loading skeleton
+
+#📸 Screenshots
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
