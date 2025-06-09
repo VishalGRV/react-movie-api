@@ -9,11 +9,11 @@ A movie search and discovery app built with React, using the TMDb API. Users can
 - 📱 Responsive design for mobile and desktop
 
 # 🧰 Tech Stack
-Frontend: React, JSX, CSS
-API: TMDb (or your custom API)
-Other: React Router, useEffect/useState hooks , React loading skeleton
+Frontend: React, JSX, CSS <bR>
+API: TMDb (or your custom API) <br>
+Other: React Router, useEffect/useState hooks , React loading skeleton <br>
 
-#📸 Screenshots
+# 📸 Screenshots
 
 
 # React + Vite
