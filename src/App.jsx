@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import { MovieProvider } from "./Context/MovieContext";
 import { SkeletonTheme } from "react-loading-skeleton";
+import MovieDetails from "./pages/MovieDetails";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/movie/:id" element={<MovieDetails />} />
         </Routes>
       </SkeletonTheme>
     </MovieProvider>

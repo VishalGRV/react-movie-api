@@ -2,6 +2,7 @@ import "../css/MovieCard.css";
 import { useMovieContext } from "../Context/MovieContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Link } from "react-router-dom";
 
 function MovieCard({ movie, loading }) {
   const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
@@ -29,7 +30,7 @@ function MovieCard({ movie, loading }) {
           />
         </>
       ) : (
-        <>
+        <Link to={`/movie/${movie.id}`}>
           <div className="movie-poster">
             <img
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -48,7 +49,7 @@ function MovieCard({ movie, loading }) {
             <h3>{movie.title || <Skeleton />}</h3>
             <p>{movie.release_date?.split("-")[0] || <Skeleton />}</p>
           </div>
-        </>
+        </Link>
       )}
     </div>
   );
