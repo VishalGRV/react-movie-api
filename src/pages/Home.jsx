@@ -2,29 +2,38 @@ import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
 import "../css/Home.css";
 import { searchMovies, getPopularMovies } from "../services/api";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      const loadPopularMovies = async () => {
-        try {
-          const popularMovies = await getPopularMovies();
-          setMovies(popularMovies);
-        } catch (err) {
-          console.log(err);
-          setError("Failed to load");
-        } finally {
-          setLoading(false);
-        }
-      };
       loadPopularMovies();
-    }, 3000);
+    }, 1000);
   }, []);
+
+  const loadPopularMovies = async () => {
+    try {
+      const popularMovies = await getPopularMovies(page);
+      setMovies((prev) => {
+        const newMovies = popularMovies.filter(
+          (movie) => !prev.some((m) => m.id === movie.id)
+        );
+        return [...prev, ...newMovies];
+      });
+      setPage((prev) => prev + 1);
+    } catch (err) {
+      console.log(err);
+      setError("Failed to load");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   async function handleSearch(e) {
     e.preventDefault();
@@ -58,15 +67,22 @@ function Home() {
           Search
         </button>
       </form>
-      <div className="movies-grid">
-        {loading
-          ? Array(20)
-              .fill(0)
-              .map((_, i) => <MovieCard loading={true} key={i} />)
-          : movies.map((movie) => (
-              <MovieCard movie={movie} loading={false} key={movie.id} />
-            ))}
-      </div>
+      <InfiniteScroll
+        dataLength={movies.length}
+        next={loadPopularMovies}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+      >
+        <div className="movies-grid">
+          {loading
+            ? Array(20)
+                .fill(0)
+                .map((_, i) => <MovieCard loading={true} key={i} />)
+            : movies.map((movie) => (
+                <MovieCard movie={movie} loading={false} key={movie.id} />
+              ))}
+        </div>
+      </InfiniteScroll>
     </div>
   );
 }
