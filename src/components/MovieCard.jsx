@@ -17,7 +17,7 @@ function MovieCard({ movie, loading }) {
     <div className="movie-card">
       {loading ? (
         <>
-          <Skeleton height={470} style={{ marginTop: -5 }} />
+          <Skeleton height={470} />
           <Skeleton
             height={20}
             width={180}

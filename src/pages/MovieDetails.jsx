@@ -2,17 +2,41 @@ import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../services/api";
 import { useState, useEffect } from "react";
 import "../css/MovieDetails.css";
+import Skeleton from "react-loading-skeleton";
 
 function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    getMovieDetails(id).then(setMovie);
+    setTimeout(() => getMovieDetails(id).then(setMovie), 1000);
   }, [id]);
 
-  if (!movie) return <p>Loading</p>;
-  else
+  if (!movie) {
+    return (
+      <div className="movie-detail-container">
+        <div className="movie-title">
+          <Skeleton width={600} height={30} style={{ marginBottom: "5px" }} />
+          <Skeleton width={200} height={15} />
+          <Skeleton width={150} height={10} />
+        </div>
+        <div
+          className="movie-content"
+          style={{ justifyContent: "space-around", width: "700" }}
+        >
+          <Skeleton width={300} height={400} />
+          <div>
+            <Skeleton
+              width={450}
+              height={100}
+              style={{ marginBottom: "10px" }}
+            />
+            <Skeleton width={100} height={30} />
+          </div>
+        </div>
+      </div>
+    );
+  } else
     return (
       <div className="movie-detail-container">
         <div className="movie-title">
@@ -31,8 +55,6 @@ function MovieDetails() {
             alt=""
           />
           <div className="movie-info1">
-            <p></p>
-
             <p>{movie.overview}</p>
             <p>Rating:{Number(movie.vote_average.toFixed(1))}</p>
             <div className="genres">
